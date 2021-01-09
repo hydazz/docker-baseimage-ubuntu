@@ -4,6 +4,7 @@ FROM alpine as rootfs-stage
 ARG UBUNTU_VERSION
 ENV REL=${UBUNTU_VERSION}
 ENV ARCH=amd64
+
 # install packages
 RUN \
    apk add --no-cache \
@@ -24,8 +25,8 @@ RUN \
 
 # Runtime stage
 FROM scratch
+
 COPY --from=rootfs-stage /root-out/ /
-LABEL maintainer="hydaz"
 
 # set version for s6 overlay
 ARG OVERLAY_VERSION
