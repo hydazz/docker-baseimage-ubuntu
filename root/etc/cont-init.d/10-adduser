@@ -1,0 +1,29 @@
+#!/usr/bin/with-contenv bash
+
+PUID=${PUID:-911}
+PGID=${PGID:-911}
+
+groupmod -o -g "$PGID" abc >/dev/null 2>&1
+usermod -o -u "$PUID" abc >/dev/null 2>&1
+
+echo "
+-------------------------------------
+$(cat /motd.txt)
+-------------------------------------"
+if [[ -f /donate.txt ]]; then
+	echo "
+To support the app dev(s) visit:
+$(cat /donate.txt)
+-------------------------------------"
+fi
+echo "
+GID/UID
+-------------------------------------
+User uid:    $(id -u abc)
+User gid:    $(id -g abc)
+-------------------------------------"
+
+chown abc:abc \
+	/app \
+	/config \
+	/defaults
