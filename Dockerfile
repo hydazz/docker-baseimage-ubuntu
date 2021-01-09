@@ -42,6 +42,9 @@ ENV HOME="/root" \
    LANG="en_US.UTF-8" \
    TERM="xterm"
 
+# stuff dash, absolute garbage
+SHELL ["/bin/bash", "-c"]
+
 RUN \
    echo "**** Ripped from Ubuntu Docker Logic ****" && \
    set -xe && \
