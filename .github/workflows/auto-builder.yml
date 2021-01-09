@@ -17,7 +17,7 @@ jobs:
           DOCKERHUB_USER: vcxpz
           DOCKERHUB_IMAGE: baseimage-ubuntu
           DOCKERIMAGE_TAG: latest
-          UBUNTU_VERSION: focal
+          UBUNTU_VERSION: groovy
         run: |
           echo "DOCKERHUB_IMAGE=${DOCKERHUB_IMAGE}" >>$GITHUB_ENV
           echo "DOCKERHUB_USER=${DOCKERHUB_USER}" >>$GITHUB_ENV
@@ -67,10 +67,3 @@ jobs:
           docker tag ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:cibuild ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${UBUNTU_VERSION}
           docker push ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${DOCKERIMAGE_TAG}
           docker push ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${UBUNTU_VERSION}
-
-      - name: Sync README With Docker Hub
-        uses: peter-evans/dockerhub-description@v2
-        with:
-          username: vcxpz
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: ${{ steps.variables.outputs.USER_IMAGE }}
