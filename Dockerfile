@@ -46,7 +46,7 @@ ENV HOME="/root" \
 # stuff dash, absolute garbage
 SHELL ["/bin/bash", "-c"]
 
-RUN \
+RUN set -xe && \
    echo "**** Ripped from Ubuntu Docker Logic ****" && \
    set -xe && \
    echo '#!/bin/sh' \
