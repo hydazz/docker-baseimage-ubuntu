@@ -63,5 +63,14 @@ jobs:
 
       - name: Tag And Push Docker Image
         run: |
+          docker tag ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:cibuild ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${DOCKERIMAGE_TAG}
           docker tag ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:cibuild ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${UBUNTU_VERSION}
+          docker push ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${DOCKERIMAGE_TAG}
           docker push ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${UBUNTU_VERSION}
+
+      - name: Sync README With Docker Hub
+        uses: peter-evans/dockerhub-description@v2
+        with:
+          username: vcxpz
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: ${{ steps.variables.outputs.USER_IMAGE }}
