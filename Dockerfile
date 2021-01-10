@@ -1,4 +1,4 @@
-FROM alpine as rootfs-stage
+FROM alpine:edge as rootfs-stage
 
 # environment
 ARG UBUNTU_VERSION
