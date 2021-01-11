@@ -3,7 +3,6 @@ FROM alpine:edge as rootfs-stage
 # environment
 ARG UBUNTU_VERSION
 ENV REL=${UBUNTU_VERSION}
-ENV ARCH=amd64
 
 # install packages
 RUN \
@@ -18,7 +17,7 @@ RUN \
    mkdir /root-out && \
    curl -o \
       /rootfs.tar.gz -L \
-      https://partner-images.canonical.com/core/${REL}/current/ubuntu-${REL}-core-cloudimg-${ARCH}-root.tar.gz && \
+      https://partner-images.canonical.com/core/${REL}/current/ubuntu-${REL}-core-cloudimg-amd64-root.tar.gz && \
    tar xf \
         /rootfs.tar.gz -C \
         /root-out
