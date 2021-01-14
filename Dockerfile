@@ -15,9 +15,10 @@ RUN \
 # grab base tarball
 RUN \
    mkdir /root-out && \
+   ARCH=$(curl -sSL https://raw.githubusercontent.com/hydazz/scripts/main/docker/ubuntu-archer.sh | bash) && \
    curl -o \
       /rootfs.tar.gz -L \
-      https://partner-images.canonical.com/core/${REL}/current/ubuntu-${REL}-core-cloudimg-amd64-root.tar.gz && \
+      https://partner-images.canonical.com/core/${REL}/current/ubuntu-${REL}-core-cloudimg-${ARCH}-root.tar.gz && \
    tar xf \
         /rootfs.tar.gz -C \
         /root-out
@@ -29,11 +30,6 @@ COPY --from=rootfs-stage /root-out/ /
 
 # set version for s6 overlay
 ARG OVERLAY_VERSION
-ARG OVERLAY_ARCH="amd64"
-
-# add s6 overlay
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${OVERLAY_VERSION}/s6-overlay-${OVERLAY_ARCH}-installer /tmp/
-RUN chmod +x /tmp/s6-overlay-${OVERLAY_ARCH}-installer && /tmp/s6-overlay-${OVERLAY_ARCH}-installer / && rm /tmp/s6-overlay-${OVERLAY_ARCH}-installer
 
 # set environment variables
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -42,12 +38,8 @@ ENV HOME="/root" \
    LANG="en_US.UTF-8" \
    TERM="xterm"
 
-# stuff dash, absolute garbage
-SHELL ["/bin/bash", "-c"]
-
 RUN set -xe && \
    echo "**** Ripped from Ubuntu Docker Logic ****" && \
-   set -xe && \
    echo '#!/bin/sh' \
       > /usr/sbin/policy-rc.d && \
    echo 'exit 101' \
@@ -88,6 +80,9 @@ RUN set -xe && \
       curl \
       gnupg \
       tzdata && \
+   curl -sSL \
+      "https://raw.githubusercontent.com/hydazz/scripts/main/docker/s6-installer.sh" \
+      | bash && \
    echo "**** generate locale ****" && \
    locale-gen en_US.UTF-8 && \
    echo "**** create abc user and make our folders ****" && \

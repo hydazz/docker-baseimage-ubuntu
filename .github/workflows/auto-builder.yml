@@ -12,50 +12,84 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: groovy
+          ref: main
           fetch-depth: 0
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        id: buildx
+        with:
+          install: true
 
       - name: Set Enviroment Variables
         id: variables
         env:
           DOCKERHUB_USER: vcxpz
-          DOCKERHUB_IMAGE: baseimage-ubuntu
+          DOCKERHUB_IMAGE: baseimage-alpine
           DOCKERIMAGE_TAG: latest
           UBUNTU_VERSION: groovy
+          PLATFORMS: linux/amd64,linux/arm64,linux/arm/v7
         run: |
           echo "DOCKERHUB_IMAGE=${DOCKERHUB_IMAGE}" >>$GITHUB_ENV
           echo "DOCKERHUB_USER=${DOCKERHUB_USER}" >>$GITHUB_ENV
           echo "DOCKERIMAGE_TAG=${DOCKERIMAGE_TAG}" >>$GITHUB_ENV
           echo "UBUNTU_VERSION=${UBUNTU_VERSION}" >>$GITHUB_ENV
-          echo "OVERLAY_VERSION=$(curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | jq -r .tag_name | cut -c 2-)" >>$GITHUB_ENV
+          echo "::set-output name=OVERLAY_VERSION::$(curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | jq -r .tag_name)"
           echo "::set-output name=USER_IMAGE::${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}"
+          echo "PLATFORMS=${PLATFORMS}" >>$GITHUB_ENV
 
       - name: Docker Login
-        env:
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: |
-          echo ${DOCKER_PASSWORD} | docker login -u ${DOCKERHUB_USER} --password-stdin
+        uses: docker/login-action@v1
+        with:
+          username: vcxpz
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Github Login
         run: |
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
 
-      - name: Build The Docker Image
+      - name: Build And Push The Docker Image (CI Build)
+        env:
+          OVERLAY_VERSION: ${{ steps.variables.outputs.OVERLAY_VERSION }}
         run: |
-          docker build --no-cache --pull . --file Dockerfile --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} --build-arg OVERLAY_VERSION=${OVERLAY_VERSION} --tag ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:cibuild
+          docker build \
+            --platform=${PLATFORMS} \
+            --output "type=image,push=true" \
+            --build-arg OVERLAY_VERSION=${OVERLAY_VERSION} \
+            --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} \
+            --tag ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:cibuild \
+            --file Dockerfile .
 
       - name: Test The Docker Image
         run: |
+          export IMAGE="${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:cibuild"
           export RUN_ARGS="-e DEBUG=true -e TEST_RUN=true"
           curl -sSL https://raw.githubusercontent.com/hydazz/scripts/main/docker/docker-ci.sh | bash
+
+      - name: Build And Push The Docker Image
+        env:
+          OVERLAY_VERSION: ${{ steps.variables.outputs.OVERLAY_VERSION }}
+        run: |
+          docker build \
+            --platform=${PLATFORMS} \
+            --output "type=image,push=true" \
+            --build-arg OVERLAY_VERSION=${OVERLAY_VERSION} \
+            --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} \
+            --tag ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${DOCKERIMAGE_TAG} \
+            --file Dockerfile .
 
       - name: Get New Package Versions From Image
         run: |
           docker run --rm --entrypoint '/bin/sh' -v "$PWD":/tmp ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:cibuild -c '\
-            apt list -qq --installed | sed "s#/.*now ##g" | cut -d" " -f1 | sort >/tmp/package_versions.txt'
+            apk info -v | sort >/tmp/package_versions.txt'
 
       - name: Update README
+        env:
+          OVERLAY_VERSION: ${{ steps.variables.outputs.OVERLAY_VERSION }}
         run: |
           chmod +x update_version_info.sh && ./update_version_info.sh
 
@@ -64,13 +98,6 @@ jobs:
           git add -A
           git commit -m 'Bot Updating Files' || echo "No Changes"
           git push || echo "No Changes"
-
-      - name: Tag And Push Docker Image
-        run: |
-          docker tag ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:cibuild ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${DOCKERIMAGE_TAG}
-          docker tag ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:cibuild ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${UBUNTU_VERSION}
-          docker push ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${DOCKERIMAGE_TAG}
-          docker push ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${UBUNTU_VERSION}
 
       - name: Sync README With Docker Hub
         uses: peter-evans/dockerhub-description@v2
