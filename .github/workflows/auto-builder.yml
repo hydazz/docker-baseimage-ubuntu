@@ -28,7 +28,7 @@ jobs:
         id: variables
         env:
           DOCKERHUB_USER: vcxpz
-          DOCKERHUB_IMAGE: baseimage-alpine
+          DOCKERHUB_IMAGE: baseimage-ubuntu
           DOCKERIMAGE_TAG: latest
           UBUNTU_VERSION: groovy
           PLATFORMS: linux/amd64,linux/arm64,linux/arm/v7
@@ -80,6 +80,7 @@ jobs:
             --build-arg OVERLAY_VERSION=${OVERLAY_VERSION} \
             --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} \
             --tag ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${DOCKERIMAGE_TAG} \
+            --tag ${DOCKERHUB_USER}/${DOCKERHUB_IMAGE}:${UBUNTU_VERSION} \
             --file Dockerfile .
 
       - name: Get New Package Versions From Image
