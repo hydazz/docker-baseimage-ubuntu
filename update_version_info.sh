@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OVERLAY_VERSION=$(echo ${OVERLAY_VERSION} | cut -c 2-)
+OVERLAY_VERSION=${OVERLAY_VERSION//v}
 
 OLD_OVERLAY_VERSION=$(jq <version_info.json -r .overlay_version)
 
