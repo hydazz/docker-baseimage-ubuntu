@@ -5,7 +5,7 @@ ARG UBUNTU_VERSION
 ENV REL=${UBUNTU_VERSION}
 
 # install packages
-RUN \
+RUN set -xe && \
    apk add --no-cache \
         bash \
         curl \
@@ -13,7 +13,7 @@ RUN \
         xz
 
 # grab base tarball
-RUN \
+RUN set -xe && \
    mkdir /root-out && \
    ARCH=$(curl -sSL https://raw.githubusercontent.com/hydazz/scripts/main/docker/ubuntu-archer.sh | bash) && \
    curl -o \
@@ -76,7 +76,7 @@ RUN set -xe && \
       apt-utils \
       locales && \
    echo "**** install packages ****" && \
-   apt-get install -y \
+   apt-get install -y --no-install-recommends \
       curl \
       gnupg \
       tzdata && \
