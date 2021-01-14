@@ -2,7 +2,7 @@
 
 OVERLAY_VERSION=$(echo ${OVERLAY_VERSION} | cut -c 2-)
 
-OLD_OVERLAY_VERSION=$(cat version_info.json | jq -r .overlay_version)
+OLD_OVERLAY_VERSION=$(jq <version_info.json -r .overlay_version)
 
 sed -i \
 	-e "s/${OLD_OVERLAY_VERSION}/${OVERLAY_VERSION}/g" \
