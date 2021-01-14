@@ -1,5 +1,7 @@
 #!/bin/bash
 
+OVERLAY_VERSION=$(echo ${OVERLAY_VERSION} | cut -c 2-)
+
 OLD_OVERLAY_VERSION=$(cat version_info.json | jq -r .overlay_version)
 
 sed -i \
