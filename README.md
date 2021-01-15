@@ -10,9 +10,9 @@ A custom base image built with [Ubuntu cloud image][appurl] and [S6 overlay][s6o
 
 ![ubuntu](https://img.shields.io/badge/ubuntu-groovy-E95420?style=for-the-badge&logo=ubuntu) ![s6 overlay](https://img.shields.io/badge/s6_overlay-2.1.0.2-blue?style=for-the-badge)
 
-**[See here for a list of packages](https://github.com/hydazz/docker-baseimage-ubuntu/blob/main/package_versions.txt)**
+See [package_versions.txt](package_versions.txt) for a full list of the packages and package versions used in this image
 
-**Read the official [README](https://github.com/linuxserver/docker-baseimage-ubuntu/) for more information**
+**Read the official [README.md](https://github.com/linuxserver/docker-baseimage-ubuntu/) for more information**
 
 [appurl]: https://cloud-images.ubuntu.com
 [s6overlay]: https://github.com/just-containers/s6-overlay
