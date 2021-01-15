@@ -137,7 +137,7 @@ readline-common8.0-4
 sed4.7-1ubuntu1
 sensible-utils0.0.13
 sysvinit-utils2.96-3ubuntu1
-tar1.30+dfsg-7
+tar1.30+dfsg-7ubuntu0.20.10.1
 tzdata2020f-0ubuntu0.20.10.1
 ubuntu-keyring2020.06.17.1
 util-linux2.36-3ubuntu1
