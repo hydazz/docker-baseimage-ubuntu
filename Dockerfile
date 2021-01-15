@@ -16,7 +16,7 @@ RUN set -xe && \
 RUN set -xe && \
    mkdir /root-out && \
    ARCH=$(curl -sSL https://raw.githubusercontent.com/hydazz/scripts/main/docker/ubuntu-archer.sh | bash) && \
-   curl -o \
+   curl --silent -o \
       /rootfs.tar.gz -L \
       https://partner-images.canonical.com/core/${REL}/current/ubuntu-${REL}-core-cloudimg-${ARCH}-root.tar.gz && \
    tar xf \
