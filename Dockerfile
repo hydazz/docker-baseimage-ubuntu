@@ -76,7 +76,7 @@ RUN set -xe && \
       apt-utils \
       locales && \
    echo "**** install packages ****" && \
-   apt-get install -y --no-install-recommends \
+   apt-get install -y \
       curl \
       gnupg \
       tzdata && \
