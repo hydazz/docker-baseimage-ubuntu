@@ -1,6 +1,6 @@
 ## docker-baseimage-ubuntu
 
-[![docker hub](https://img.shields.io/badge/docker_hub-link-blue?style=for-the-badge&logo=docker)](https://hub.docker.com/r/vcxpz/baseimage-ubuntu) ![docker image size](https://img.shields.io/docker/image-size/vcxpz/baseimage-ubuntu?style=for-the-badge&logo=docker) [![auto build](https://img.shields.io/badge/docker_builds-automated-blue?style=for-the-badge&logo=docker?color=d1aa67)](https://github.com/hydazz/docker-baseimage-ubuntu/actions?query=workflow%3A"Auto+Builder+CI")
+[![docker hub](https://img.shields.io/badge/docker_hub-link-blue?style=for-the-badge&logo=docker)](https://hub.docker.com/r/vcxpz/baseimage-ubuntu) ![docker image size](https://img.shields.io/docker/image-size/vcxpz/baseimage-ubuntu?style=for-the-badge&logo=docker) [![auto build](https://img.shields.io/badge/docker_builds-automated-blue?style=for-the-badge&logo=docker?color=d1aa67)](https://github.com/hydazz/docker-baseimage-ubuntu/actions?query=workflow%3A"Auto+Builder+CI") [![codacy branch grade](https://img.shields.io/codacy/grade/ac76be9b6d1e4e5b86684531182d64ca/groovy?style=for-the-badge)](https://app.codacy.com/gh/hydazz/docker-baseimage-ubuntu)
 
 Fork of [linuxserver/docker-baseimage-ubuntu](https://github.com/linuxserver/docker-baseimage-ubuntu/)
 
