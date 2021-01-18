@@ -41,7 +41,6 @@ jobs:
             --platform=linux/amd64,linux/arm64,linux/arm/v7 \
             --output "type=image,push=true" \
             --build-arg UBUNTU_VERSION=groovy \
-            --build-arg OVERLAY_VERSION=$(curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | jq -r .tag_name) \
             --tag vcxpz/baseimage-ubuntu:groovy \
             --tag vcxpz/baseimage-ubuntu:latest \
             --file Dockerfile .
@@ -53,7 +52,7 @@ jobs:
 
       - name: Update README
         run: |
-          export APP_VERSION=$(curl -sX GET "https://api.github.com/repos/hydazz/docker-baseimage-ubuntu/releases/latest" | jq -r .tag_name)
+          export APP_VERSION=$(curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | jq -r .tag_name)
           chmod +x update_version_info.sh && ./update_version_info.sh
 
       - name: Commit And Push Changes To Github
