@@ -29,7 +29,7 @@ FROM scratch
 COPY --from=rootfs-stage /root-out/ /
 
 # set version for s6 overlay
-ARG OVERLAY_VERSION=${APP_VERSION}
+ARG OVERLAY_VERSION
 
 # set environment variables
 ARG DEBIAN_FRONTEND="noninteractive"
