@@ -8,7 +8,7 @@ A custom base image built with [Ubuntu cloud image][appurl] and [S6 overlay][s6o
 
 ## Version Information
 
-![ubuntu](https://img.shields.io/badge/ubuntu-groovy-E95420?style=for-the-badge&logo=ubuntu) ![s6 overlay](https://img.shields.io/badge/s6_overlay--blue?style=for-the-badge)
+![ubuntu](https://img.shields.io/badge/ubuntu-groovy-E95420?style=for-the-badge&logo=ubuntu) ![s6 overlay](https://img.shields.io/badge/s6_overlay-2.1.0.2-blue?style=for-the-badge)
 
 See [package_versions.txt](package_versions.txt) for a full list of the packages and package versions used in this image
 

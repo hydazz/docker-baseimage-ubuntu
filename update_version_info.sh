@@ -1,6 +1,6 @@
 #!/bin/bash
-
-OVERLAY_VERSION=${OVERLAY_VERSION//v}
+OVERLAY_VERSION=$(curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | jq -r .tag_name)
+OVERLAY_VERSION=${OVERLAY_VERSION//v/}
 
 OLD_OVERLAY_VERSION=$(jq <version_info.json -r .overlay_version)
 
