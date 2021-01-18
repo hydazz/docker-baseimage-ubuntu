@@ -5,7 +5,7 @@ ARG UBUNTU_VERSION
 ENV REL=${UBUNTU_VERSION}
 
 # install packages
-RUN set -xe && \
+RUN \
    apk add --no-cache \
         bash \
         curl \
@@ -13,7 +13,7 @@ RUN set -xe && \
         xz
 
 # grab base tarball
-RUN set -xe && \
+RUN \
    mkdir /root-out && \
    ARCH=$(curl -sSL https://raw.githubusercontent.com/hydazz/scripts/main/docker/ubuntu-archer.sh | bash) && \
    curl --silent -o \
@@ -38,7 +38,7 @@ ENV HOME="/root" \
    LANG="en_US.UTF-8" \
    TERM="xterm"
 
-RUN set -xe && \
+RUN \
    echo "**** Ripped from Ubuntu Docker Logic ****" && \
    echo '#!/bin/sh' \
       > /usr/sbin/policy-rc.d && \
