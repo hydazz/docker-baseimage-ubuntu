@@ -40,7 +40,7 @@ jobs:
           docker build \
             --platform=linux/amd64,linux/arm64,linux/arm/v7 \
             --output "type=image,push=true" \
-            --build-arg BUILD_DATE="$(date +%Y-%m-%d)"
+            --build-arg BUILD_DATE="$(date +%Y-%m-%d)" \
             --build-arg UBUNTU_VERSION=groovy \
             --build-arg OVERLAY_VERSION=$(curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | jq -r .tag_name) \
             --tag vcxpz/baseimage-ubuntu:groovy \
