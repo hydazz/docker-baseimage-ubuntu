@@ -15,10 +15,10 @@ RUN \
 # grab base tarball
 RUN \
    mkdir /root-out && \
-   ARCH=$(curl -sSL https://raw.githubusercontent.com/hydazz/scripts/main/docker/ubuntu-archer.sh | bash) && \
+   ARCH=$(curl -sSL "https://raw.githubusercontent.com/hydazz/scripts/main/docker/ubuntu-archer.sh" | bash) && \
    curl --silent -o \
      /rootfs.tar.gz -L \
-     https://partner-images.canonical.com/core/${REL}/current/ubuntu-${REL}-core-cloudimg-${ARCH}-root.tar.gz && \
+     "https://partner-images.canonical.com/core/${REL}/current/ubuntu-${REL}-core-cloudimg-${ARCH}-root.tar.gz" && \
    tar xf \
      /rootfs.tar.gz -C \
      /root-out
