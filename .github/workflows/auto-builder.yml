@@ -8,7 +8,7 @@ on:
     - cron: "0 0 * * 0"
 
 jobs:
-  groovy:
+  ubuntu-groovy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -85,7 +85,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: vcxpz/baseimage-ubuntu
 
-  focal:
+  ubuntu-focal:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
