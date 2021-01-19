@@ -135,5 +135,6 @@ jobs:
             --build-arg TAG=focal \
             --build-arg BUILD_DATE="$(date +%Y-%m-%d)" \
             --build-arg OVERLAY_VERSION=$(curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | jq -r .tag_name) \
+            --tag vcxpz/baseimage-ubuntu:focal \
             --file Dockerfile .
 
