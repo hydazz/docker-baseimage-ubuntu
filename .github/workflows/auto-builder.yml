@@ -14,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: groovy
+          ref: main
           fetch-depth: 0
 
       - name: Set up QEMU
@@ -91,7 +91,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: groovy
+          ref: main
           fetch-depth: 0
 
       - name: Set up QEMU
