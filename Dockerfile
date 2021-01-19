@@ -1,8 +1,8 @@
 FROM alpine:edge as rootfs-stage
 
 # environment
-ARG UBUNTU_VERSION
-ENV REL=${UBUNTU_VERSION}
+ARG TAG
+ENV REL=${TAG}
 
 # install packages
 RUN \
