@@ -38,7 +38,7 @@ jobs:
       - name: Build The Docker Image For Testing
         run: |
           docker build \
-            --build-arg OVERLAY_VERSION=$(curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | jq -r .tag_name) \
+            --build-arg OVERLAY_VERSION="v2.1.0.2" \
             --tag vcxpz/ci-build:ci-build \
             --build-arg TAG=groovy \
             --file Dockerfile .
@@ -47,7 +47,7 @@ jobs:
         run: |
           export IMAGE="vcxpz/ci-build:ci-build"
           export TEST_SEARCH="\[services.d\] done."
-          export RUN_ARGS="-e DEBUG=true -e TEST_RUN=true"
+          export RUN_ARGS="-e DEBUG=true"
           curl -sSL https://raw.githubusercontent.com/hydazz/scripts/main/docker/docker-ci.sh | bash
 
       - name: Build And Push The Docker Image
@@ -57,7 +57,7 @@ jobs:
             --output "type=image,push=true" \
             --build-arg TAG=groovy \
             --build-arg BUILD_DATE="$(date +%Y-%m-%d)" \
-            --build-arg OVERLAY_VERSION=$(curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | jq -r .tag_name) \
+            --build-arg OVERLAY_VERSION="v2.1.0.2" \
             --tag vcxpz/baseimage-ubuntu:latest \
             --tag vcxpz/baseimage-ubuntu:groovy \
             --file Dockerfile .
@@ -115,7 +115,7 @@ jobs:
       - name: Build The Docker Image For Testing
         run: |
           docker build \
-            --build-arg OVERLAY_VERSION=$(curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | jq -r .tag_name) \
+            --build-arg OVERLAY_VERSION="v2.1.0.2" \
             --tag vcxpz/ci-build:ci-build \
             --build-arg TAG=focal \
             --file Dockerfile .
@@ -124,7 +124,7 @@ jobs:
         run: |
           export IMAGE="vcxpz/ci-build:ci-build"
           export TEST_SEARCH="\[services.d\] done."
-          export RUN_ARGS="-e DEBUG=true -e TEST_RUN=true"
+          export RUN_ARGS="-e DEBUG=true"
           curl -sSL https://raw.githubusercontent.com/hydazz/scripts/main/docker/docker-ci.sh | bash
 
       - name: Build And Push The Docker Image
@@ -134,7 +134,7 @@ jobs:
             --output "type=image,push=true" \
             --build-arg TAG=focal \
             --build-arg BUILD_DATE="$(date +%Y-%m-%d)" \
-            --build-arg OVERLAY_VERSION=$(curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | jq -r .tag_name) \
+            --build-arg OVERLAY_VERSION="v2.1.0.2" \
             --tag vcxpz/baseimage-ubuntu:focal \
             --file Dockerfile .
 
