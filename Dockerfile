@@ -15,7 +15,7 @@ RUN \
 # grab base tarball
 RUN \
    mkdir /root-out && \
-   ARCH=$(curl -sSL "https://raw.githubusercontent.com/hydazz/scripts/main/docker/ubuntu-archer.sh" | bash) && \
+   ARCH=$(curl -sSL "https://raw.githubusercontent.com/hydazz/docker-utils/main/docker/ubuntu-archer.sh" | bash) && \
    curl --silent -o \
      /rootfs.tar.gz -L \
      "https://partner-images.canonical.com/core/${REL}/current/ubuntu-${REL}-core-cloudimg-${ARCH}-root.tar.gz" && \
@@ -81,7 +81,7 @@ RUN \
      gnupg \
      tzdata && \
    curl -sSL \
-     "https://raw.githubusercontent.com/hydazz/scripts/main/docker/s6-installer.sh" \
+     "https://raw.githubusercontent.com/hydazz/docker-utils/main/docker/s6-installer.sh" \
      | bash && \
    echo "**** generate locale ****" && \
    locale-gen en_US.UTF-8 && \
