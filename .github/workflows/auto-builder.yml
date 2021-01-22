@@ -38,7 +38,7 @@ jobs:
       - name: Build The Docker Image For Testing
         run: |
           docker build \
-            --build-arg OVERLAY_VERSION="v2.1.0.2" \
+            --build-arg OVERLAY_VERSION="v2.2.0.0" \
             --tag vcxpz/ci-build:ci-build \
             --build-arg TAG=groovy \
             --file Dockerfile .
@@ -57,7 +57,7 @@ jobs:
             --output "type=image,push=true" \
             --build-arg TAG=groovy \
             --build-arg BUILD_DATE="$(date +%Y-%m-%d)" \
-            --build-arg OVERLAY_VERSION="v2.1.0.2" \
+            --build-arg OVERLAY_VERSION="v2.2.0.0" \
             --tag vcxpz/baseimage-ubuntu:latest \
             --tag vcxpz/baseimage-ubuntu:groovy \
             --file Dockerfile .
@@ -115,7 +115,7 @@ jobs:
       - name: Build The Docker Image For Testing
         run: |
           docker build \
-            --build-arg OVERLAY_VERSION="v2.1.0.2" \
+            --build-arg OVERLAY_VERSION="v2.2.0.0" \
             --tag vcxpz/ci-build:ci-build \
             --build-arg TAG=focal \
             --file Dockerfile .
@@ -134,7 +134,7 @@ jobs:
             --output "type=image,push=true" \
             --build-arg TAG=focal \
             --build-arg BUILD_DATE="$(date +%Y-%m-%d)" \
-            --build-arg OVERLAY_VERSION="v2.1.0.2" \
+            --build-arg OVERLAY_VERSION="v2.2.0.0" \
             --tag vcxpz/baseimage-ubuntu:focal \
             --file Dockerfile .
 
