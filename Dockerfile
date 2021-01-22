@@ -33,7 +33,8 @@ ARG OVERLAY_VERSION
 
 # set environment variables
 ARG DEBIAN_FRONTEND="noninteractive"
-ENV HOME="/root" \
+ENV \
+   HOME="/root" \
    LANGUAGE="en_US.UTF-8" \
    LANG="en_US.UTF-8" \
    TERM="xterm"
@@ -79,10 +80,14 @@ RUN \
    apt-get install -y \
      curl \
      gnupg \
+     patch \
      tzdata && \
    curl -sSL \
      "https://raw.githubusercontent.com/hydazz/docker-utils/main/docker/s6-installer.sh" \
      | bash && \
+   curl --silent -o \
+   /tmp/init-stage2.patch -L \
+     "https://raw.githubusercontent.com/hydazz/docker-utils/main/patches/init-stage2.patch" && \
    echo "**** generate locale ****" && \
    locale-gen en_US.UTF-8 && \
    echo "**** create abc user and make our folders ****" && \
@@ -93,7 +98,10 @@ RUN \
      /config \
      /defaults && \
    mv /usr/bin/with-contenv /usr/bin/with-contenvb && \
+   patch -u /etc/s6/init/init-stage2 -i /tmp/init-stage2.patch && \
    echo "**** cleanup ****" && \
+   apt-get remove -y patch && \
+   apt-get autoremove && \
    apt-get clean && \
    rm -rf \
      /tmp/* \
