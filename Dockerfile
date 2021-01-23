@@ -33,11 +33,10 @@ ARG OVERLAY_VERSION
 
 # set environment variables
 ARG DEBIAN_FRONTEND="noninteractive"
-ENV \
-   HOME="/root" \
-   LANGUAGE="en_US.UTF-8" \
-   LANG="en_US.UTF-8" \
-   TERM="xterm"
+ENV HOME="/root" \
+    LANGUAGE="en_US.UTF-8" \
+    LANG="en_US.UTF-8" \
+    TERM="xterm"
 
 RUN \
    echo "**** Ripped from Ubuntu Docker Logic ****" && \
@@ -84,7 +83,7 @@ RUN \
      tzdata && \
    curl -sSL \
      "https://raw.githubusercontent.com/hydazz/docker-utils/main/docker/s6-installer.sh" \
-     | bash && \
+          | bash && \
    curl --silent -o \
    /tmp/init-stage2.patch -L \
      "https://raw.githubusercontent.com/hydazz/docker-utils/main/patches/init-stage2.patch" && \
