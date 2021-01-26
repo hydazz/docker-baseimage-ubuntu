@@ -4,6 +4,7 @@ name: Auto Builder CI
 
 on:
   workflow_dispatch:
+  repository_dispatch:
   schedule:
     - cron: "0 0 * * 0"
 
@@ -84,6 +85,12 @@ jobs:
           username: vcxpz
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: vcxpz/baseimage-ubuntu
+
+      - name: Trigger Images
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          curl -sSL https://raw.githubusercontent.com/hydazz/docker-utils/main/github/trigger_build.sh | bash
 
   ubuntu-focal:
     runs-on: ubuntu-latest
