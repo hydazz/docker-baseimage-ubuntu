@@ -82,7 +82,7 @@ RUN \
 		patch \
 		tzdata && \
 	curl -sSL \
-		"https://raw.githubusercontent.com/hydazz/docker-utils/main/docker/s6-installer.sh" |
+		"https://raw.githubusercontent.com/hydazz/docker-utils/main/docker/s6-installer.sh" | \
 	bash && \
 	curl --silent -o \
 		/tmp/init-stage2.patch -L \
