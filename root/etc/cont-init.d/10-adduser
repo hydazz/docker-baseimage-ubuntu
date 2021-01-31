@@ -1,10 +1,7 @@
 #!/usr/bin/with-contenv bash
 
-PUID=${PUID:-911}
-PGID=${PGID:-911}
-
-groupmod -o -g "$PGID" abc >/dev/null 2>&1
-usermod -o -u "$PUID" abc >/dev/null 2>&1
+groupmod -o -g "${PUID:-911}" abc >/dev/null 2>&1
+usermod -o -u "${PGID:-911}" abc >/dev/null 2>&1
 
 if [ "$(date +%Y)" == "1970" ] && [ "$(uname -m)" == "armv7l" ]; then
 	echo '
