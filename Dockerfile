@@ -32,11 +32,11 @@ COPY --from=rootfs-stage /root-out/ /
 ARG OVERLAY_VERSION
 
 # set environment variables
-ARG DEBIAN_FRONTEND="noninteractive"
 ENV HOME="/root" \
 	LANGUAGE="en_US.UTF-8" \
 	LANG="en_US.UTF-8" \
-	TERM="xterm"
+	TERM="xterm" \
+	DEBIAN_FRONTEND="noninteractive"
 
 RUN \
 	echo "**** Ripped from Ubuntu Docker Logic ****" && \
