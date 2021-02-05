@@ -1,7 +1,7 @@
 #!/usr/bin/with-contenv bash
 
-groupmod -o -g "${PUID:-911}" abc >/dev/null 2>&1
-usermod -o -u "${PGID:-911}" abc >/dev/null 2>&1
+usermod -o -u "${PUID:-911}" abc &>/dev/null
+groupmod -o -g "${PGID:-911}" abc &>/dev/null
 
 if [ "$(date +%Y)" == "1970" ] && [ "$(uname -m)" == "armv7l" ]; then
 	echo '
@@ -37,8 +37,8 @@ fi
 echo "
 GID/UID
 -------------------------------------
-User uid:    $(id -u abc)
-User gid:    $(id -g abc)
+User UID:    $(id -u abc)
+User GID:    $(id -g abc)
 -------------------------------------"
 
 chown abc:abc \
