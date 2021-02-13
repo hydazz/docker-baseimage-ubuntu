@@ -7,4 +7,6 @@ find /config -type f -exec chmod 0644 {} \;
 [[ -f /usr/bin/cont-perms ]] &&
 	cont-perms
 
+chmod 777 /config
+
 echo "Please restart the container"
