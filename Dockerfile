@@ -2,7 +2,7 @@ FROM alpine:edge as rootfs-stage
 
 # environment
 ARG TAG
-ENV REL=${TAG}
+ENV REL=groovy
 
 # install packages
 RUN \
@@ -29,7 +29,7 @@ FROM scratch
 COPY --from=rootfs-stage /root-out/ /
 
 # set version for s6 overlay
-ARG OVERLAY_VERSION
+ARG OVERLAY_VERSION="v2.2.0.3"
 
 # set environment variables
 ENV HOME="/root" \

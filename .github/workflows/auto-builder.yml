@@ -9,7 +9,7 @@ on:
     - cron: "0 0 * * 0"
 
 jobs:
-  ubuntu-groovy:
+  ubuntu-latest:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -39,9 +39,7 @@ jobs:
       - name: Build The Docker Image For Testing
         run: |
           docker build \
-            --build-arg OVERLAY_VERSION="v2.2.0.1" \
             --tag vcxpz/ci-build:ci-build \
-            --build-arg TAG=groovy \
             --file Dockerfile .
 
       - name: Test The Docker Image
@@ -54,11 +52,8 @@ jobs:
           docker buildx build \
             --platform=linux/amd64,linux/arm64,linux/arm/v7 \
             --output "type=image,push=true" \
-            --build-arg TAG=groovy \
             --build-arg BUILD_DATE="$(date +%Y-%m-%d)" \
-            --build-arg OVERLAY_VERSION="v2.2.0.1" \
             --tag vcxpz/baseimage-ubuntu:latest \
-            --tag vcxpz/baseimage-ubuntu:groovy \
             --file Dockerfile .
 
       - name: Get New Package Versions From Image
