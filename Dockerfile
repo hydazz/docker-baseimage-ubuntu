@@ -2,7 +2,7 @@ FROM alpine:edge as rootfs-stage
 
 # environment
 ARG TAG
-ENV REL=groovy
+ENV REL=${TAG}
 
 # install packages
 RUN \
