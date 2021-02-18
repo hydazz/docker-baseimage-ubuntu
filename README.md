@@ -6,12 +6,6 @@ Fork of [linuxserver/docker-baseimage-ubuntu](https://github.com/linuxserver/doc
 
 A custom base image built with [Ubuntu cloud image][appurl] and [S6 overlay][s6overlay]
 
-## Version Information
-
-![ubuntu](https://img.shields.io/badge/ubuntu-groovy-E95420?style=for-the-badge&logo=ubuntu)
-
-See <package_versions.txt> for a full list of the packages and package versions used in this image
-
 **Read the official [README.md](https://github.com/linuxserver/docker-baseimage-ubuntu/) for more information**
 
 [appurl]: https://cloud-images.ubuntu.com
