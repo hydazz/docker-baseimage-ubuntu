@@ -1,7 +1,7 @@
 FROM alpine:edge as rootfs-stage
 
 # environment
-ARG TAG
+ARG TAG=groovy
 ENV REL=${TAG}
 
 # install packages
@@ -15,7 +15,13 @@ RUN \
 # grab base tarball
 RUN \
 	mkdir /root-out && \
-	ARCH=$(curl -sSL "https://raw.githubusercontent.com/hydazz/docker-utils/main/docker/ubuntu-archer.sh" | bash) && \
+	if [ "$(arch)" = "x86_64" ]; then \
+		ARCH="amd64"; \
+	elif [ "$(arch)" == "armv7"* ]; then \
+		ARCH="armhf"; \
+	elif [ "$(arch)" == "aarch64" ]; then \
+		ARCH="arm64"; \
+	fi && \
 	curl --silent -o \
 		/rootfs.tar.gz -L \
 		"https://partner-images.canonical.com/core/${REL}/current/ubuntu-${REL}-core-cloudimg-${ARCH}-root.tar.gz" && \
@@ -81,9 +87,18 @@ RUN \
 		gnupg \
 		patch \
 		tzdata && \
-	curl -sSL \
-		"https://raw.githubusercontent.com/hydazz/docker-utils/main/docker/s6-installer.sh" | \
-	bash && \
+	echo "**** install s6-overlay ****" && \
+	if [ "$(arch)" = "x86_64" ]; then \
+		OVERLAY_ARCH="amd64"; \
+	elif echo "$(arch)" | grep -E -q "armv7|aarch64"; then \
+		OVERLAY_ARCH="arm"; \
+	fi && \
+	curl --silent -o \
+		/tmp/s6-overlay-${OVERLAY_ARCH}-installer -L \
+		"https://github.com/just-containers/s6-overlay/releases/download/${OVERLAY_VERSION}/s6-overlay-${OVERLAY_ARCH}-installer" && \
+	chmod +x /tmp/s6-overlay-${OVERLAY_ARCH}-installer && \
+	/tmp/s6-overlay-${OVERLAY_ARCH}-installer "/" && \
+	echo "**** patch s6-overlay ****" && \
 	curl --silent -o \
 		/tmp/init-stage2.patch -L \
 		"https://raw.githubusercontent.com/hydazz/docker-utils/main/patches/init-stage2.patch" && \
