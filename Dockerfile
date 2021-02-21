@@ -17,7 +17,7 @@ RUN \
 	mkdir /root-out && \
 	if [ "$(arch)" = "x86_64" ]; then \
 		ARCH="amd64"; \
-	elif [ "$(arch)" == "armv7"* ]; then \
+	elif [ "$(arch)" == "armv7l" ]; then \
 		ARCH="armhf"; \
 	elif [ "$(arch)" == "aarch64" ]; then \
 		ARCH="arm64"; \
@@ -90,14 +90,14 @@ RUN \
 	echo "**** install s6-overlay ****" && \
 	if [ "$(arch)" = "x86_64" ]; then \
 		OVERLAY_ARCH="amd64"; \
-	elif echo "$(arch)" | grep -E -q "armv7|aarch64"; then \
+	elif echo "$(arch)" | grep -E -q "armv7l|aarch64"; then \
 		OVERLAY_ARCH="arm"; \
 	fi && \
 	curl --silent -o \
-		/tmp/s6-overlay-${OVERLAY_ARCH}-installer -L \
+		/tmp/s6-overlay-installer -L \
 		"https://github.com/just-containers/s6-overlay/releases/download/${OVERLAY_VERSION}/s6-overlay-${OVERLAY_ARCH}-installer" && \
-	chmod +x /tmp/s6-overlay-${OVERLAY_ARCH}-installer && \
-	/tmp/s6-overlay-${OVERLAY_ARCH}-installer "/" && \
+	chmod +x /tmp/s6-overlay-installer && \
+	/tmp/s6-overlay-installer "/" && \
 	echo "**** patch s6-overlay ****" && \
 	curl --silent -o \
 		/tmp/init-stage2.patch -L \
