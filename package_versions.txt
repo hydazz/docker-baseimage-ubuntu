@@ -70,8 +70,8 @@ libkrb5-26-heimdal7.7.0+dfsg-2
 libkrb5-31.17-10ubuntu0.1
 libkrb5support01.17-10ubuntu0.1
 libksba81.4.0-2
-libldap-2.4-22.4.53+dfsg-1ubuntu1.3
-libldap-common2.4.53+dfsg-1ubuntu1.3
+libldap-2.4-22.4.53+dfsg-1ubuntu1.4
+libldap-common2.4.53+dfsg-1ubuntu1.4
 liblz4-11.9.2-2
 liblzma55.2.4-1ubuntu1
 libmount12.36-3ubuntu1
