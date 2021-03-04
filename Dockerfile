@@ -1,4 +1,4 @@
-FROM alpine:edge as rootfs-stage
+FROM alpine:latest as rootfs-stage
 
 # environment
 ARG TAG=groovy
