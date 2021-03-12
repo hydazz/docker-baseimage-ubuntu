@@ -17,10 +17,12 @@ RUN \
 	mkdir /root-out && \
 	if [ "$(arch)" = "x86_64" ]; then \
 		ARCH="amd64"; \
-	elif [ "$(arch)" == "armv7l" ]; then \
+	elif [ "$(arch)" = "armv7l" ]; then \
 		ARCH="armhf"; \
-	elif [ "$(arch)" == "aarch64" ]; then \
+	elif [ "$(arch)" = "aarch64" ]; then \
 		ARCH="arm64"; \
+	else \
+		exit 1; \
 	fi && \
 	curl --silent -o \
 		/rootfs.tar.gz -L \
