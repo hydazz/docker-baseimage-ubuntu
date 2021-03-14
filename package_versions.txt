@@ -118,7 +118,7 @@ libudev1246.6-1ubuntu1.1
 libunistring20.9.10-4
 libuuid12.36-3ubuntu1
 libwind0-heimdal7.7.0+dfsg-2
-libzstd11.4.5+dfsg-4
+libzstd11.4.5+dfsg-4ubuntu0.1
 locales2.32-0ubuntu3
 login1:4.8.1-1ubuntu6
 logsave1.45.6-1ubuntu1
