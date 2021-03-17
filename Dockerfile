@@ -5,7 +5,7 @@ ARG TAG=groovy
 ENV REL=${TAG}
 
 # install packages
-RUN \
+RUN set -xe && \
 	apk add --no-cache \
 		bash \
 		curl \
@@ -13,7 +13,7 @@ RUN \
 		xz
 
 # grab base tarball
-RUN \
+RUN set -xe && \
 	mkdir /root-out && \
 	if [ "$(arch)" = "x86_64" ]; then \
 		ARCH="amd64"; \
@@ -24,7 +24,7 @@ RUN \
 	else \
 		exit 1; \
 	fi && \
-	curl --silent -o \
+	curl -o \
 		/rootfs.tar.gz -L \
 		"https://partner-images.canonical.com/core/${REL}/current/ubuntu-${REL}-core-cloudimg-${ARCH}-root.tar.gz" && \
 	tar xf \
@@ -46,7 +46,7 @@ ENV HOME="/root" \
 	TERM="xterm" \
 	DEBIAN_FRONTEND="noninteractive"
 
-RUN \
+RUN set -xe && \
 	echo "**** Ripped from Ubuntu Docker Logic ****" && \
 	echo '#!/bin/sh' \
 		>/usr/sbin/policy-rc.d && \
@@ -95,13 +95,13 @@ RUN \
 	elif echo "$(arch)" | grep -E -q "armv7l|aarch64"; then \
 		OVERLAY_ARCH="arm"; \
 	fi && \
-	curl --silent -o \
+	curl -o \
 		/tmp/s6-overlay-installer -L \
 		"https://github.com/just-containers/s6-overlay/releases/download/${OVERLAY_VERSION}/s6-overlay-${OVERLAY_ARCH}-installer" && \
 	chmod +x /tmp/s6-overlay-installer && \
 	/tmp/s6-overlay-installer "/" && \
 	echo "**** patch s6-overlay ****" && \
-	curl --silent -o \
+	curl -o \
 		/tmp/init-stage2.patch -L \
 		"https://raw.githubusercontent.com/hydazz/docker-utils/main/patches/init-stage2.patch" && \
 	echo "**** generate locale ****" && \
