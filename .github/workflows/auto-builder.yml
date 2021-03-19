@@ -36,7 +36,7 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
 
-      - name: Build The Docker Image Locally (amd64)
+      - name: Build the Docker Image Locally (amd64)
         run: |
           docker buildx build \
             --platform=amd64 \
@@ -46,12 +46,12 @@ jobs:
             --build-arg TAG=groovy \
             --file Dockerfile .
 
-      - name: Test The Docker Image
+      - name: Test the Docker Image
         run: |
           export TEST_SEARCH="\[services.d\] done."
           curl -sSL https://raw.githubusercontent.com/hydazz/docker-utils/main/docker/docker-ci.sh | bash
 
-      - name: Build And Push The Docker Image
+      - name: Build and Push the Docker Image
         run: |
           docker buildx build \
             --platform=linux/amd64,linux/arm64,linux/arm/v7 \
@@ -67,7 +67,7 @@ jobs:
           docker run --rm --entrypoint /bin/sh -v ${PWD}:/tmp vcxpz/ci-build:ci-build -c '\
             apt list -qq --installed | sed "s#/.*now ##g" | cut -d" " -f1 | sort >/tmp/package_versions.txt'
 
-      - name: Commit And Push Changes To Github
+      - name: Commit and Push Changes to Github
         run: |
           git add -A
           git commit -m "Bot Updating Files" || true
