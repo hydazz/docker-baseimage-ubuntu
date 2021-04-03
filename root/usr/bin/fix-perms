@@ -1,6 +1,14 @@
 #!/usr/bin/with-contenv bash
 
-echo "This may take a while, be patient!"
+# ~~~~~~~~~~~~~~~~~~~~~~~
+# set colours
+# ~~~~~~~~~~~~~~~~~~~~~~~
+
+green='\033[1;32m' # Green
+nc='\033[0m'       # no colour
+
+echo -e "${green}>>> Fixing /config permissions, this will apply 755 to directories and 644 to folders.${nc}"
+echo -e "${green}>>> This may take a while, be patient.${nc}"
 find /config -type d -exec chmod 0755 {} \; &
 find /config -type f -exec chmod 0644 {} \;
 
@@ -8,5 +16,6 @@ find /config -type f -exec chmod 0644 {} \;
 	cont-perms
 
 chmod 777 /config
+chown -R abc:abc /config
 
-echo "Please restart the container"
+echo -e "${green}>>> Complete!${nc}"
