@@ -7,7 +7,7 @@ bash5.0-6ubuntu2
 bsdutils1:2.36-3ubuntu1
 ca-certificates20210119~20.10.1
 coreutils8.32-3ubuntu1
-curl7.68.0-1ubuntu4.2
+curl7.68.0-1ubuntu4.3
 dash0.5.10.2-7
 debconf1.5.74
 debianutils4.11.2
@@ -46,7 +46,7 @@ libcap-ng00.7.9-2.2
 libc-bin2.32-0ubuntu3
 libcom-err21.45.6-1ubuntu1
 libcrypt11:4.4.16-1ubuntu1
-libcurl47.68.0-1ubuntu4.2
+libcurl47.68.0-1ubuntu4.3
 libdb5.35.3.28+dfsg1-0.6ubuntu3
 libdebconfclient00.252ubuntu1
 libext2fs21.45.6-1ubuntu1
